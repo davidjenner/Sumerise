@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+</head>
+<body>
+    <h1>Text Summarizer</h1>
+    <form id="summarizer-form">
+        <textarea name="text" rows="10" cols="50" placeholder="Enter text here..."></textarea>
+        <br>
+        <button type="submit">Summarize</button>
+    </form>
+    <h2>Summary:</h2>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('summarizer-form').onsubmit = function(e) {
+            e.preventDefault();
+            fetch('/summarize', {
+                method: 'POST',
+                body: new FormData(this)
+            }).then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data;
+            });
+        }
+    </script>
+</body>
+</html>
